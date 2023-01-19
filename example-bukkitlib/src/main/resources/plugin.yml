@@ -1,0 +1,4 @@
+name: ExampleBukkitlib
+version: '${version}'
+main: kz.charles_grozny.examplebukkitlib.Main
+author: Charles_Grozny
