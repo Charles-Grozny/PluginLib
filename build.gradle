@@ -17,7 +17,7 @@ nexusStaging {
 
 allprojects {
     group = 'io.github.charles-grozny.pluginlib'
-    version = '3.0.0-beta'
+    version = '3.0.0'
 }
 
 subprojects {
@@ -58,7 +58,7 @@ subprojects {
                         licenses {
                             license {
                                 name = 'The Apache License, Version 2.0'
-                                url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                                url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
                             }
                         }
 

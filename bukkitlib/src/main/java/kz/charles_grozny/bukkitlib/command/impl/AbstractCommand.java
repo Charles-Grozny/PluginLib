@@ -1,7 +1,6 @@
 package kz.charles_grozny.bukkitlib.command.impl;
 
 import kz.charles_grozny.bukkitlib.annotation.command.Command;
-import kz.charles_grozny.bukkitlib.annotation.command.Permission;
 import kz.charles_grozny.bukkitlib.command.Manager;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,23 +11,17 @@ import lombok.val;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Ferius_057 (Charles_Grozny)
  * ⭐ 17.12.2021 | 2:19 ⭐
  */
 
+@Getter
 @FieldDefaults(makeFinal = true, level = AccessLevel.PROTECTED)
 public abstract class AbstractCommand<T extends Manager> extends SimplyCommandManager<T> {
-    @Getter
     String name;
-
-    @Getter
-    List<String> aliases;
-
-    @Getter
-    List<String> names;
+    List<String> aliases, names;
 
     @SneakyThrows
     @SuppressWarnings("unchecked")
