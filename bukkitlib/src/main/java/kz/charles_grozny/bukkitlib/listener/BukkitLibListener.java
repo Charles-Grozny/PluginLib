@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * @author Ferius_057 (Charles_Grozny)
- * @date ⭐ 30.12.2022 | 20:06 ⭐
+ * @since ⭐ 30.12.2022 | 20:06 ⭐
  */
 @AllArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)

@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 
 /**
  * @author Ferius_057 (Charles_Grozny)
- * @date ⭐ 30.12.2022 | 22:00 ⭐
+ * @since ⭐ 30.12.2022 | 22:00 ⭐
  */
 @Getter
 @Builder
