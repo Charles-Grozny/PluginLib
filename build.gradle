@@ -1,0 +1,103 @@
+plugins {
+    id 'io.codearte.nexus-staging' version '0.30.0'
+    id 'maven-publish'
+    id 'signing'
+    id 'java'
+}
+
+def ossrhUsername = project.findProperty("ossrhUsername") ?: ""
+def ossrhPassword = project.findProperty("ossrhPassword") ?: ""
+
+nexusStaging {
+    packageGroup = "io.github.charles-grozny"
+    serverUrl = "https://s01.oss.sonatype.org/service/local/"
+    username = ossrhUsername
+    password = ossrhPassword
+}
+
+allprojects {
+    group = 'io.github.charles-grozny.pluginlib'
+    version = '3.0.0'
+}
+
+subprojects {
+    apply plugin: "maven-publish"
+    apply plugin: "java-library"
+    apply plugin: "signing"
+    apply plugin: "java"
+
+    repositories {
+        mavenCentral()
+    }
+
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    signing {
+        useGpgCmd()
+        sign publishing.publications
+    }
+
+    publishing {
+        publications {
+            if (project.name != 'example-bukkitlib') {
+                register("mavenJava", MavenPublication) {
+                    from components.findByName('java')
+
+                    groupId = group
+                    artifactId = project.name
+                    version = version
+
+                    pom {
+                        name = project.name
+                        url = "https://github.com/Charles-Grozny/PluginLib"
+                        description = "My library for simplifying the writing of Minecraft plugins"
+
+                        licenses {
+                            license {
+                                name = 'The Apache License, Version 2.0'
+                                url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                            }
+                        }
+
+                        scm {
+                            connection = "scm:git:git://github.com/charles-grozny/pluginlib.git"
+                            developerConnection = "scm:git:ssh://github.com:charles-grozny/pluginlib.git"
+                            url = "https://github.com/Charles-Grozny/PluginLib"
+                        }
+
+                        developers {
+                            developer {
+                                id.set("Charles_Grozny")
+                                name.set("ferius_057")
+                                email.set("ferius057@gmail.com")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                def releasesUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                def snapshotsUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+                url = version.toString().endsWith("SNAPSHOT") ? snapshotsUrl : releasesUrl
+                credentials {
+                    username = ossrhUsername
+                    password = ossrhPassword
+                }
+            }
+        }
+    }
+
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok:1.18.30'
+        annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+        compileOnly 'org.jetbrains:annotations:24.1.0'
+    }
+}
